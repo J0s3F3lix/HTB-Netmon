@@ -29,9 +29,9 @@ Ahora solo debemos enumerar
 ```
 cd Users\Public
 ```
-Veremos nuestra primera flag user.txt la voy a descargar 
+Veremos nuestra primera flag user.txt la cual descargare.
 ```
-get user.txt.
+get user.txt
 ```
 
 
